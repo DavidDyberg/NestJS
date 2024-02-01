@@ -1,44 +1,43 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Prisma, Todo } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class TodosService {
-    constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) {}
 
-async    findAll() {
-        return this.prisma.todo.findMany()
-    }
+  async findAll() {
+    return this.prisma.todo.findMany();
+  }
 
-async    findOne(id: number) {
-        return this.prisma.todo.findUnique({
-            where: {
-                id,
-            }
-        })
-    }
+  async findOne(id: number) {
+    return this.prisma.todo.findUnique({
+      where: {
+        id,
+      },
+    });
+  }
 
-async createTodo(data: Prisma.TodoCreateInput): Promise<Todo> {
-        
+  async createTodo(data: Prisma.TodoCreateInput): Promise<Todo> {
     return this.prisma.todo.create({
-        data,
-    })
-    }
+      data,
+    });
+  }
 
-async  updateTodo(id: number, data: Prisma.TodoUpdateInput): Promise<Todo> {
-        return this.prisma.todo.update({
-            where: {
-                id,
-            },
-            data
-        })
-    }
+  async updateTodo(id: number, data: Prisma.TodoUpdateInput): Promise<Todo> {
+    return this.prisma.todo.update({
+      where: {
+        id,
+      },
+      data,
+    });
+  }
 
-async   deleteTodo(id: number) {
-        return this.prisma.todo.delete({
-            where: {
-                id,
-            }
-        })
-    }
+  async deleteTodo(id: number) {
+    return this.prisma.todo.delete({
+      where: {
+        id,
+      },
+    });
+  }
 }
